@@ -71,8 +71,7 @@ const filterFiles = (
     .reduce((acc, file) => {
       if (testNames.some(testName => testName === file.id)) {
         acc.push(file);
-      }
-
+      } else {
       switch (file.type) {
         case "file":
           acc.push({
@@ -89,6 +88,7 @@ const filterFiles = (
           acc.push(file);
           break;
       }
+    }
 
       return acc;
     }, [] as Array<FileNode | FileWithParseErrorNode>);
