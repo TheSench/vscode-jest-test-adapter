@@ -212,7 +212,7 @@ export default class JestTestAdapter implements TestAdapter {
     const testFilter = mapTestIdsToTestFilter(testsToRun);
 
     // we emit events to notify which tests we are running.
-    const filteredTree = filterTree(project, testsToRun);
+    const filteredTree = filterTree(project, testsToRun, false);
     emitTestRunningRootNode(filteredTree, eventEmitter);
 
     // begin running the tests in Jest.
@@ -223,7 +223,7 @@ export default class JestTestAdapter implements TestAdapter {
       const treeWithRuntime = mergeRuntimeResults(project, jestResponse.results.testResults);
 
       // filter the tree
-      const filteredTreeWithRuntime = filterTree(treeWithRuntime, testsToRun);
+      const filteredTreeWithRuntime = filterTree(treeWithRuntime, testsToRun, true);
 
       const testEvents = mapJestTestResultsToTestEvents(jestResponse, filteredTreeWithRuntime);
       emitTestCompleteRootNode(filteredTreeWithRuntime, testEvents, eventEmitter);
